@@ -5,25 +5,31 @@ var sass = require('gulp-sass');
 var browserSync = require('browser-sync').create();
 
 var rutas = {
-    rutaJs: 'assets/js/app.js'
+    rutaJs: 'assets/js/app.js',
+    rutaSCSS: 'assets/scss/main.scss',
+}
+
+var rutasPublicas ={
+    js: "public/js",
+    css: 'public/css',
 }
 
 gulp.task('prueba', function () {
     gulp.src(rutas.rutaJs)
         .pipe(uglify())
         .pipe(obfuscate())
-        .pipe(gulp.dest("public/js"))
+        .pipe(gulp.dest(rutasPublicas.js))
 })
 
 gulp.task('prepararCSS', function () {
-    gulp.src('assets/scss/main.scss')
+    gulp.src(rutas.rutaSCSS)
         .pipe(sass({outputStyle: 'compressed'})
         .on('error', sass.logError))
-        .pipe(gulp.dest('public/css'));
+        .pipe(gulp.dest(rutasPublicas.css));
 })
 
 gulp.task("default", function(){
-	gulp.watch("assets/scss/main.scss", ["prepararCSS"] );
+	gulp.watch(rutas.rutaSCSS, ["prepararCSS"] );
     
 });
 
@@ -34,7 +40,7 @@ gulp.task('watchChangesCSS',function(){
         }
     })
     
-    gulp.watch("assets/scss/main.scss", ["sass-watch"] );
+    gulp.watch(rutas.rutaSCSS, ["sass-watch"] );
 })
 
 gulp.task('sass-watch',['prepararCSS'],function(){
