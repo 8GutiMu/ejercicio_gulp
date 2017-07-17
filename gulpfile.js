@@ -28,12 +28,9 @@ gulp.task('prepararCSS', function () {
         .pipe(gulp.dest(rutasPublicas.css));
 })
 
-gulp.task("default", function(){
-	gulp.watch(rutas.rutaSCSS, ["prepararCSS"] );
-    
-});
 
-gulp.task('watchChangesCSS',function(){
+
+gulp.task('watchChanges',function(){
     browserSync.init({
         server:{
             baseDir: "./public"
@@ -41,8 +38,18 @@ gulp.task('watchChangesCSS',function(){
     })
     
     gulp.watch(rutas.rutaSCSS, ["sass-watch"] );
+    gulp.watch('assets/index.html',["html-watch"])
 })
 
 gulp.task('sass-watch',['prepararCSS'],function(){
     browserSync.reload();
 })
+
+gulp.task('html-watch',['act-html'],function(){
+    browserSync.reload(); 
+})
+
+gulp.task("act-html",function(){
+	gulp.src('assets/index.html')
+		.pipe(gulp.dest('public'));
+});
