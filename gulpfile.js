@@ -4,6 +4,7 @@ var obfuscate = require('gulp-obfuscate');
 var sass = require('gulp-sass');
 var browserSync = require('browser-sync').create();
 
+
 var rutas = {
     rutaJs: 'assets/js/app.js',
     rutaSCSS: 'assets/scss/main.scss',
@@ -53,3 +54,4 @@ gulp.task("act-html",function(){
 	gulp.src('assets/index.html')
 		.pipe(gulp.dest('public'));
 });
+
